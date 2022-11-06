@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .canvas,
+      .canvas2 {
+        border: 2px solid red;
+      }
+    </style>
+  </head>
+  <body>
+    <input class="file" type="file" accept=".png,.jpg,.jpeg" name="" id="" />
+    <img class="img" src="" alt="" />
+  </body>
+  <script type="module">
+    import zipImage from "zipimage"
+    const fileRef = document.querySelector(".file");
+    const imgRef = document.querySelector(".img");
+
+    fileRef.onchange = (e)=>{
+        operateFile(e.target.files[0])
+    }
+
+    async function operateFile(file){
+        if(!file) return
+        const zipFile = await zipImage(file,.4)
+        console.log(file.size)
+        console.log(zipFile.size);
+        imgRef.src = URL.createObjectURL(zipFile)
+        // download(base64,'test.png')
+
+    }
+  </script>
+</html>
